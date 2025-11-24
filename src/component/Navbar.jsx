@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Provider/AuthProvider';
+import auth from '../firebase/firebase.config';
+import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
+  const {user} = useContext(AuthContext);
+
+  const handleSignOut =()=>{
+    signOut(auth)
+  }
   return (
     <div className="navbar bg-base-100 shadow-sm">
   <div className="navbar-start">
@@ -26,9 +34,18 @@ const Navbar = () => {
       <li><Link>My Profile</Link></li>
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn">Login</a>
+  {
+    user &&  <div className="navbar-end">
+    <button onClick={handleSignOut} className="btn">Logout</button>
+
   </div>
+  }
+  {
+    !user &&  <div className="navbar-end">
+    <Link to={'/Login'} className="btn">Login</Link>
+  </div>
+  }
+ 
 </div>
   );
 };
