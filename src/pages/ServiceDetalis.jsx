@@ -19,6 +19,13 @@ const ServiceDetalis = () => {
   return (
     <div className='flex flex-col items-center px-[145px]'>
       <img src={findResult?.image} alt=""/>
+    
+      <h2 className='font-bold'>Servicename:{findResult?.serviceName}</h2>
+      <h3><span className='font-bold text-blue-500'>Description:</span>{findResult?.description}</h3>
+      <p><span className='font-bold text-blue-500' >Rating:</span>{findResult?.rating}</p>
+      <p><span className='font-bold text-blue-500' >Category:</span>{findResult?.category}</p>
+      <p><span className='font-bold '>Price:</span>{findResult?.price}</p>
+
         </div>
       
 

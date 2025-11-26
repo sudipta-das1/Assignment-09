@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import auth from '../firebase/firebase.config';
 import { AuthContext } from '../Provider/AuthProvider';
@@ -10,6 +10,7 @@ const Login = () => {
   const {setUser,handleGoogleSignin}= useContext(AuthContext)
   const location =useLocation();
   const navigate = useNavigate();
+  const [setEmail] = useState()
   
   
 
@@ -43,7 +44,7 @@ const Login = () => {
     .then(result =>{
       const user = result.user;
       setUser(user)
-      navigate(location.state)
+      navigate(location.state? location.state :'/')
        
       
     })
@@ -51,6 +52,12 @@ const Login = () => {
     console.log(error);
     
   });
+  }
+  const handleForget =()=>{
+        
+    navigate('/forget/${email')
+    
+
   }
   
   return (
@@ -62,10 +69,10 @@ const Login = () => {
       <div className="card-body">
         <form onSubmit={handleSubmit} className="form">
           <label className="label">Email</label>
-          <input name='email' type="email" className="input" placeholder="Email" />
+          <input onChange={(e)=>setEmail(e.target.value)} name='email' type="email" className="input" placeholder="Email" />
           <label className="label">Password</label>
           <input name='password' type="password" className="input" placeholder="Password" />
-          <div><a className="link link-hover">Forgot password?</a></div>
+          <div><button onClick={handleForget} className="link link-hover">Forgot password?</button></div>
 
           <button onClick={googleSignin} className="btn w-full mt-4"> <FcGoogle />
 </button>
